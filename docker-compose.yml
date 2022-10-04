@@ -1,0 +1,62 @@
+version: '3.9'
+
+services:
+  php:
+    image: webdevops/php-apache-dev:8.1
+    volumes:
+      - application_data:/app
+    working_dir: '/app'
+    user: 'application'
+    ports:
+      - '80:80'
+    networks:
+      - default
+    environment:
+      WEB_DOCUMENT_ROOT: /app/app/public
+      WEB_DOCUMENT_INDEX: index.php
+      XDEBUG_MODE: "debug"
+      XDEBUG_DISCOVER_CLIENT_HOST: "true"
+      XDEBUG_START_WITH_REQUEST: "yes"
+  mysql:
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - '3306:3306'
+    restart: on-failure
+    networks:
+      default:
+        aliases:
+          - database
+    environment:
+      MYSQL_ROOT_PASSWORD: 'root'
+  inbucket:
+    image: inbucket/inbucket
+    ports:
+      - '8025:9000'
+    environment:
+      # see https://github.com/inbucket/inbucket/blob/master/doc/config.md
+      - INBUCKET_STORAGE_TYPE=memory
+      - INBUCKET_STORAGE_RETENTIONPERIOD=24h
+      - INBUCKET_SMTP_DEFAULTSTORE=true
+      - INBUCKET_SMTP_ADDR=0.0.0.0:1025
+      - INBUCKET_POP3_ADDR=0.0.0.0:1011
+      - INBUCKET_STORAGE_MAILBOXMSGCAP=1000
+      - INBUCKET_SMTP_DEFAULTACCEPT=true
+      - INBUCKET_SMTP_STOREDOMAINS=
+      - INBUCKET_SMTP_DISCARDDOMAINS=
+      - INBUCKET_MAILBOXNAMING=local
+    networks:
+      default:
+
+networks:
+  default:
+
+volumes:
+  db_data:
+  application_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: "$PWD"
