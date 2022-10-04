@@ -1,0 +1,9 @@
+.header {
+    width: 100vw;
+}
+
+.header img {
+    z-index: -1;
+    object-fit: cover;
+    height: 40vh;
+}

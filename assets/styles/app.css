@@ -1,0 +1,34 @@
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-blue: hsl(220, 98%, 61%);
+    --check-bg: linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%));
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --v-light-gray:  hsl(0, 0%, 98%);
+        --v-light-gray-blue: hsl(236, 33%, 92%);
+        --light-gray-blue:  hsl(233, 11%, 84%);
+        --dark-gray-blue: hsl(236, 9%, 61%);
+        --very-dark-gray-blue: hsl(235, 19%, 35%);
+    }
+}
+
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --v-light-gray:  hsl(235, 21%, 11%);
+        --v-light-gray-blue: hsl(235, 24%, 19%);
+        --light-gray-blue: hsl(234, 39%, 85%);
+        --dark-gray-blue: hsl(234, 11%, 52%);
+        --very-dark-gray-blue: hsl(233, 14%, 35%);
+    }
+}
+
+
+body {
+    font-family: 'Josefin Sans', sans-serif;
+}

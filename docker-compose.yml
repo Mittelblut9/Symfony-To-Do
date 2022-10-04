@@ -12,7 +12,7 @@ services:
     networks:
       - default
     environment:
-      WEB_DOCUMENT_ROOT: /app/app/public
+      WEB_DOCUMENT_ROOT: /app/public
       WEB_DOCUMENT_INDEX: index.php
       XDEBUG_MODE: "debug"
       XDEBUG_DISCOVER_CLIENT_HOST: "true"
