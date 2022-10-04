@@ -1,12 +1,34 @@
 <template>
   <section class="header">
-    <img src="@/img/bg-desktop-dark.jpg" alt="" class="absolute top-0 left-0 width-100" />
+    <picture>
+      <source :srcset="require(`@/img/${m_header_bg}`)" media="(max-width: 357px)">
+
+      <img :src="require(`@/img/${header_bg}`)" alt="" class="absolute top-0 left-0 width-100" loading="lazy" decoding="async"/>
+    </picture>
   </section>
 </template>
 
 <script>
 export default {
-  name: "header.component"
+  name: "header.component",
+  data() {
+    return {
+      header_bg: "",
+      m_header_bg: "",
+      header: {
+        light: "bg-desktop-light.jpg",
+        dark: "bg-desktop-dark.jpg",
+        m_light: "bg-mobile-light.jpg",
+        m_dark: "bg-mobile-dark.jpg",
+      }
+    }
+  },
+  beforeMount() {
+    const prefersDarkMode = window.matchMedia("(prefers-color-scheme:dark)").matches
+
+    this.header_bg = prefersDarkMode ? this.header.dark : this.header.light;
+    this.m_header_bg = prefersDarkMode ? this.header.m_dark : this.header.m_light;
+  }
 }
 </script>
 

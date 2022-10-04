@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="../styles/app.css">
 <template>
   <section class="todo">
     <header class="display-flex align-items-center">
@@ -6,7 +7,7 @@
     </header>
     <main>
 
-      <div class="display-flex align-items-center">
+      <div class="newtodo display-flex align-items-center">
         <input type="checkbox" class="absolute" :id="`checkBox`">
         <label :for="`checkBox`"></label>
         <input type="text" placeholder="Add new todo" v-model="new_todo" @keyup.enter="addTodo">
@@ -22,6 +23,19 @@
             <img src="@/img/icons/icon-cross.svg" alt="">
           </button>
 
+        </li>
+        <li class="filter display-flex ">
+          <p>{{todos.length}} items left ({{todos.filter(i => i.done).length}} Done)</p>
+          <p>
+            <span>
+              <a href="#" @click="filterTodos('all')" class="filter_active">All</a>
+              <a href="#" @click="filterTodos('active')">Active</a>
+              <a href="#" @click="filterTodos('completed')">Completed</a>
+            </span>
+          </p>
+          <p>
+            <a href="#" @click="clearCompleted">Clear Completed</a>
+          </p>
         </li>
       </ul>
     </main>
@@ -44,17 +58,27 @@ export default {
         {text: "Learn React", done: false},
         {text: "Learn Angular", done: false},
       ],
+      unfiltered_todos: []
     }
   },
   beforeMount() {
     const prefersDarkMode = window.matchMedia("(prefers-color-scheme:dark)").matches
     this.mode_icon = prefersDarkMode ? this.icons.icon_light : this.icons.icon_dark;
   },
+  mounted() {
+    this.unfiltered_todos = this.todos;
+  },
   methods: {
     addTodo() {
       const done = this.$el.querySelector("input[type='checkbox']").checked;
 
-      this.todos.push({text: this.new_todo, done});
+      const obj = {
+        text: this.new_todo,
+        done: done
+      }
+
+      this.todos.push(obj);
+
       this.new_todo = "";
       this.$el.querySelector("input[type='checkbox']").checked = false;
     },
@@ -93,6 +117,22 @@ export default {
     },
     selectInput(index) {
       this.getTextInput(index).setSelectionRange(0, this.getTextInput(index).value.length)
+    },
+    filterTodos(filter) {
+      if (filter === "all") {
+        this.todos = this.unfiltered_todos;
+        return;
+      }
+      if (filter === "active") {
+        this.todos = this.unfiltered_todos.filter(todo => !todo.done);
+        return;
+      }
+      if (filter === "completed") {
+        this.todos = this.unfiltered_todos.filter(todo => todo.done);
+      }
+    },
+    clearCompleted() {
+      this.todos = this.todos.filter(todo => !todo.done);
     }
   }
 }
