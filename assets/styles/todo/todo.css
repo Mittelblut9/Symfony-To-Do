@@ -1,5 +1,4 @@
 .todo {
-    display: block;
     width: 40%;
     margin: 10% auto;
 }
@@ -75,6 +74,11 @@
     cursor: pointer;
 }
 
+.todo main input[type="checkbox"] + label.hover::before,
+.todo main input[type="checkbox"] + label.hover::after {
+    border: 1px solid var(--primary-blue);
+}
+
 .todo main input[type="checkbox"] + label::before,
 .todo main input[type="checkbox"] + label::after {
     content: "";
@@ -83,6 +87,7 @@
     height: 20px;
     border: 1px solid var(--light-gray-blue);
     border-radius: 50%;
+    transition: border .2s;
 }
 
 .todo main input[type="checkbox"] + label::after {
@@ -109,11 +114,16 @@
     padding: 0 20px 0 0;
 }
 
+.todo main ul li:hover .todo main button img {
+    opacity: 1 !important;
+}
+
 .todo main button img {
     margin: 7px 0 0 0;
-    opacity: 0;
+    transition: opacity .2s;
 }
-.todo main ul li input[type="text"]:hover + .todo main button img {
+
+.todo main button img.show {
     opacity: 1;
 }
 
@@ -127,6 +137,14 @@
     cursor: pointer;
     color: var(--very-dark-gray-blue);
     text-decoration: none;
+}
+
+.todo main .filter a:hover {
+    text-decoration: underline;
+}
+
+.todo main .filter p:first-child:hover {
+    cursor: default;
 }
 
 .todo main .filter p:nth-child(2) span a {

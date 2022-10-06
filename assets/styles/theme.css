@@ -6,7 +6,6 @@
 :root.light {
     --v-light-gray: hsl(0, 0%, 98%);
     --v-light-gray-blue: hsl(236, 33%, 92%);
-
     --light-gray-blue: hsl(233, 11%, 84%);
     --dark-gray-blue: hsl(236, 9%, 61%);
     --very-dark-gray-blue: hsl(235, 19%, 35%);
