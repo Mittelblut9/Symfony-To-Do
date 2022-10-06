@@ -1,9 +1,11 @@
 <template>
   <section class="header">
     <picture>
-      <source :srcset="require(`@/img/${m_header_bg}`)" media="(max-width: 357px)">
+      <source :srcset="require(`@/img/${header.m_light}`)" media="(max-width: 357px)">
+      <source :srcset="require(`@/img/${header.m_dark}`)" media="(prefers-color-scheme: dark) and (min-width: 357px)">
 
-      <img :src="require(`@/img/${header_bg}`)" alt="" class="absolute top-0 left-0 width-100" loading="lazy" decoding="async"/>
+      <source :srcset="require(`@/img/${header.dark}`)" media="(prefers-color-scheme: dark) and (max-width: 358px)">
+      <img :src="require(`@/img/${header.light}`)" alt="" class="absolute top-0 left-0 width-100" loading="lazy" decoding="async"/>
     </picture>
   </section>
 </template>
@@ -13,8 +15,6 @@ export default {
   name: "header.component",
   data() {
     return {
-      header_bg: "",
-      m_header_bg: "",
       header: {
         light: "bg-desktop-light.jpg",
         dark: "bg-desktop-dark.jpg",
@@ -23,12 +23,6 @@ export default {
       }
     }
   },
-  beforeMount() {
-    const prefersDarkMode = window.matchMedia("(prefers-color-scheme:dark)").matches
-
-    this.header_bg = prefersDarkMode ? this.header.dark : this.header.light;
-    this.m_header_bg = prefersDarkMode ? this.header.m_dark : this.header.m_light;
-  }
 }
 </script>
 

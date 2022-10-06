@@ -11,4 +11,5 @@ import Header from '@/components/header.component.vue';
 <style>
 @import '@/styles/app.css';
 @import 'https://www.blackdayz.de/css/blackcss';
+@import '@/styles/theme.css';
 </style>

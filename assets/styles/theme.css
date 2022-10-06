@@ -1,0 +1,47 @@
+:root {
+    --primary-blue: hsl(220, 98%, 61%);
+    --check-bg: linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%));
+}
+
+:root.light {
+    --v-light-gray: hsl(0, 0%, 98%);
+    --v-light-gray-blue: hsl(236, 33%, 92%);
+
+    --light-gray-blue: hsl(233, 11%, 84%);
+    --dark-gray-blue: hsl(236, 9%, 61%);
+    --very-dark-gray-blue: hsl(235, 19%, 35%);
+}
+
+:root.dark {
+    --v-light-gray: hsl(235, 21%, 11%);
+    --v-light-gray-blue: hsl(235, 24%, 19%);
+    --light-gray-blue: hsl(234, 39%, 85%);
+    --dark-gray-blue: hsl(234, 11%, 52%);
+    --very-dark-gray-blue: hsl(233, 14%, 35%);
+}
+
+
+/*-----------------------------------------------*/
+
+
+:root.dark .todo main input[type="text"],
+:root.dark .todo main input[type="checkbox"] + label,
+:root.dark .todo main button,
+:root.dark .todo main .filter{
+    background: var(--v-light-gray-blue);
+}
+
+:root.light .todo main input[type="text"],
+:root.light .todo main input[type="checkbox"] + label,
+:root.light .todo main button,
+:root.light .todo main .filter{
+    background: var(--v-light-gray);
+}
+
+
+:root.dark .todo main input[type="text"],
+:root.dark .todo main input[type="text"],
+:root.dark .todo main .filter,
+:root.dark .todo main .filter a {
+    color: var(--light-gray-blue);
+}

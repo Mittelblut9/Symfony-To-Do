@@ -49,6 +49,8 @@ export default {
     return {
       new_todo: "",
       mode_icon: "",
+      current_filter: "all",
+      theme: "",
       icons: {
         icon_dark: "icon-moon.svg",
         icon_light: "icon-sun.svg",
@@ -64,8 +66,11 @@ export default {
   beforeMount() {
     const prefersDarkMode = window.matchMedia("(prefers-color-scheme:dark)").matches
     this.mode_icon = prefersDarkMode ? this.icons.icon_light : this.icons.icon_dark;
+    document.documentElement.classList.add('dark');
   },
   mounted() {
+    this.theme = window.getComputedStyle(document.documentElement).getPropertyValue("--light") === ' ' ? 'dark' : 'light';
+    document.documentElement.classList.add(this.theme);
     this.unfiltered_todos = this.todos;
   },
   methods: {
@@ -83,18 +88,11 @@ export default {
       this.$el.querySelector("input[type='checkbox']").checked = false;
     },
     changeTheme() {
-      const prefersDarkMode = localStorage.getItem("theme");
-
-      if (prefersDarkMode === 'dark') {
-        this.mode_icon = this.icons.icon_dark;
-        document.documentElement.setAttribute("data-theme", "light")
-        localStorage.setItem("theme", "light");
-        return;
-      }
-      this.mode_icon = this.icons.icon_light;
-      document.documentElement.setAttribute("data-theme", "dark");
-      localStorage.setItem("theme", "dark");
-
+      const root = document.documentElement;
+      root.classList.remove(this.theme);
+      this.theme = this.theme === 'light' ? 'dark' : 'light';
+      (this.theme === 'light') ? this.mode_icon = this.icons.icon_dark : this.mode_icon = this.icons.icon_light;
+      root.classList.add(this.theme);
     },
     removeTodo(index) {
       this.todos.splice(index, 1);
@@ -112,7 +110,6 @@ export default {
     },
     toggleDone(index) {
       this.todos[index].done = !this.todos[index].done;
-
       this.getTextInput(index).classList.toggle("done");
     },
     selectInput(index) {
